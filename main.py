@@ -57,41 +57,29 @@ if __name__ == "__main__":
     print(colored("Pasquale Compiler", "blue"))
     print(colored("Compilador da Língua Portuguesa\n", "blue"))
 
-    lexer_output = "src/output/lexer_output.csv"
-    input_phrase = "O gato morreu."
+    while True:
+        lexer_output = "src/output/lexer_output.csv"
+        input_phrase = input("Digite a frase a ser analisada (ou 'sair' para encerrar): ")
+
+        if input_phrase.lower() == "sair":
+            break
+
+        # Chamada do Léxico
+        print(input_phrase)
+        lexer = Lexer()
+        lexer.set_phares(input_phrase)
+        lexer.set_output_file(lexer_output)
+        tokens = lexer.execute()
+
+        print("Ordem da tokenização: ")
+        for token in tokens:
+            print(token.word, token.grammar)
+
+        # Chamada do Sintático
+        syntax_analyzer = SyntaxNew()
+        syntax_analyzer.execute(tokens)
   
-    # Chamada do Léxico
-    print(input_phrase)
-    lexer = Lexer()
-    lexer.set_phares(input_phrase)
-    lexer.set_output_file(lexer_output)
-    tokens = lexer.execute()
-
-    print("Ordem da tokenização: ")
-    for token in tokens:
-        print(token.word, token.grammar)
-
-
-    # os.makedirs(os.path.dirname(lexer_output), exist_ok=True)
-    # with open(lexer.grammar_file, 'a', newline='') as csvfile:
-    #     fieldnames = ['Word', 'Grammar Class']
-    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-    #     writer.writeheader()  # Cabeçalho do CSV
-    #     for token in tokens:
-    #         writer.writerow({
-    #             'Word': token.word,
-    #             'Grammar Class': token.grammar,
-    #             # 'Line': token.line
-    #         })
-
-    # Chamada do Sintático
-    
-    
-    syntax_analyzer = SyntaxNew()
-    syntax_analyzer.execute(tokens)
-  
-    # Disparar requisições da frase original e novas frases para o Google
-    # Exibir snippets a partir de claims  
-    # frase = "mico+leão+dourado+está+em+extinção"
-    # get_search_results(frase)
+        # Disparar requisições da frase original e novas frases para o Google
+        # Exibir snippets a partir de claims  
+        # frase = "mico+leão+dourado+está+em+extinção"
+        # get_search_results(frase)
