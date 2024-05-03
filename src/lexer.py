@@ -16,7 +16,7 @@ nltk.download('omw-1.4')
 
 # Limpando o terminal após exibir situação de download dos pacotes importados
 time.sleep(2)
-os.system('clear')  # clear -> Unix, cls -> Windows
+os.system('cls')  # clear -> Unix, cls -> Windows
 
 class Lexer:
   def __init__(self):
