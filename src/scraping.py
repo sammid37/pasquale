@@ -1,8 +1,8 @@
-import tabulate
 from typing import List
 from termcolor import colored
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,33 +16,33 @@ class ElementosNaoEncontradosException(Exception):
     self.message = message
     super().__init__(self.message)
 
-class Scrapping:
+class Scraping:
   def __init__(self, queries:List[str]) -> None:
     self.queries = queries
     self.qtd_query_results = []
-    self.snippets_results = {} # dicionário para armazenar a lista de snippets de uma query
-    self.driver = webdriver.Chrome()
+    self.snippets_results = {}  # dicionário para armazenar a lista de snippets de uma query
+    chrome_options = Options()
+    chrome_options.add_argument('--log-level=3')  # Define o nível de log para "SEVERE"
+    self.driver = webdriver.Chrome(options=chrome_options)    
 
-  def display_qtd_results(results:List[str]) -> None:
-    print("Quantidade de resultados para as queries:")
-    for r in results:
-      print(r)
-
-  # TODO: futura implementação referente a exibição de snippets
-  def display_snippets(results: dict) -> None:
+  def display_snippets(self) -> None:
     """Realiza a impressão da query(claim) e seus respectivos snippets 
     acompanhando da quantidade total de resultados encontrados
     do claim pesquisado"""
-    print(colored("Resultado da consulta", "magenta"))
-    for q, r in results.items():
-      print(f"\n**Consulta:** {q}")
-      table_data = [
-          ["Quantidade de resultados:", r["quantidade_resultados"]],
-          ["Snippets:", r["snippets"]]
-      ]
-      print(tabulate.tabulate(table_data, tablefmt="fancy"))
+    print(colored("🔎 Resultado da consulta", "blue"))
+    for q, r in self.snippets_results.items():
+      print(colored(f"Query: ", "blue"), end="")
+      print(f"\"{q}\"")
+      for snippet in r.values():
+        print(snippet)
+      print()
+      # table_data = [
+      #     ["Quantidade de resultados:", r["quantidade_resultados"]],
+      #     # TODO: futura implementação referente a exibição de snippets
+      # ]
+      # print(tabulate.tabulate(table_data, tablefmt="fancy"))
 
-  def do_searches(self) -> List[str]:
+  def do_searches(self) -> None:
     """Realiza a busca no Google e retorna a quantidade de resultados totais."""
     for q in self.queries:
       snippets = []
@@ -59,17 +59,11 @@ class Scrapping:
         # for el_snippet_with_query in el_snippets_with_query:
         #   snippets.append(el_snippet_with_query.text)
 
-        # self.snippets_results[q] = {
-        #     "quantidade_resultados": el_qtd_results.text,
-        #     "snippets": snippets
-        # }
+        self.snippets_results[q] = {
+            "quantidade_resultados": el_qtd_results.text,
+            # "snippets": snippets
+        }
       except NoSuchElementException as e:
         print(colored(f"Elemento não encontrado para a consulta '{q}': {e}"))
 
     self.driver.quit()
-    return self.qtd_query_results
-
-# Exemplo de uso
-scraper = Scrapping(["Filme que marca o centenário da Disney", "Ash finalmente ganha a liga pokemon."])
-print(scraper.queries)
-queries_result = scraper.do_searches()
