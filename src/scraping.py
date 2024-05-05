@@ -23,6 +23,12 @@ class Scrapping:
     self.snippets_results = {} # dicionário para armazenar a lista de snippets de uma query
     self.driver = webdriver.Chrome()
 
+  def display_qtd_results(results:List[str]) -> None:
+    print("Quantidade de resultados para as queries:")
+    for r in results:
+      print(r)
+
+  # TODO: futura implementação referente a exibição de snippets
   def display_snippets(results: dict) -> None:
     """Realiza a impressão da query(claim) e seus respectivos snippets 
     acompanhando da quantidade total de resultados encontrados
@@ -36,7 +42,7 @@ class Scrapping:
       ]
       print(tabulate.tabulate(table_data, tablefmt="fancy"))
 
-  def do_searches(self) -> dict:
+  def do_searches(self) -> List[str]:
     """Realiza a busca no Google e retorna a quantidade de resultados totais."""
     for q in self.queries:
       snippets = []
@@ -46,24 +52,24 @@ class Scrapping:
         wait = WebDriverWait(self.driver, SEARCH_TTL) # tempo limite para a busca
         
         el_qtd_results = wait.until(EC.presence_of_element_located((By.ID, RESULT_STATS)))
-        el_snippets_with_query = self.driver.find_elements(By.CSS_SELECTOR, ".N54PNb.BToiNc")
+        self.qtd_query_results.append(el_qtd_results.text)
 
-        for el_snippet_with_query in el_snippets_with_query:
-          snippets.append(el_snippet_with_query.text)
+        # TODO: futura implementação de incluir trechos que contém o claim 
+        #  el_snippets_with_query = self.driver.find_elements(By.CSS_SELECTOR, ".N54PNb.BToiNc")
+        # for el_snippet_with_query in el_snippets_with_query:
+        #   snippets.append(el_snippet_with_query.text)
 
-        self.snippets_results[q] = {
-            "quantidade_resultados": el_qtd_results.text,
-            "snippets": snippets
-        }
+        # self.snippets_results[q] = {
+        #     "quantidade_resultados": el_qtd_results.text,
+        #     "snippets": snippets
+        # }
       except NoSuchElementException as e:
         print(colored(f"Elemento não encontrado para a consulta '{q}': {e}"))
 
     self.driver.quit()
-    return self.snippets_results
+    return self.qtd_query_results
 
 # Exemplo de uso
 scraper = Scrapping(["Filme que marca o centenário da Disney", "Ash finalmente ganha a liga pokemon."])
 print(scraper.queries)
-resultados = scraper.do_searches()
-print(type(resultados))
-# scraper.display_snippets(resultados)
+queries_result = scraper.do_searches()
