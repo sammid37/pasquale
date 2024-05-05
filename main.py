@@ -12,6 +12,7 @@ import requests
 sys.path.append('src')
 
 from lexer import Lexer
+from scraping import Scraping
 from syntaxnew import SyntaxNew
 from termcolor import colored
 
@@ -80,6 +81,6 @@ if __name__ == "__main__":
         syntax_analyzer.execute(tokens)
   
         # Disparar requisições da frase original e novas frases para o Google
-        # Exibir snippets a partir de claims  
-        # frase = "mico+leão+dourado+está+em+extinção"
-        # get_search_results(frase)
+        scraper = Scraping(["Filme que marca o centenário da Disney", "Ash finalmente ganha a liga pokemon."])
+        queries_result = scraper.do_searches()
+        scraper.display_snippets()
