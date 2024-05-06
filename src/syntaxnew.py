@@ -302,7 +302,7 @@ class SyntaxNew:
             print(f"\nSujeito: {sujeito}")
             print(f"Predicado: {predicado}")
             if 'AUX' in grammar_list:
-                print(f"Auxiliar: {word_list[grammar_list.index('AUX')]}")
+                print(f"Verbo Auxiliar: {word_list[grammar_list.index('AUX')]}")
             print(f"Verbo: {word_list[grammar_list.index('VERB')]}")
             print(f"Complemento Verbal: {complemento_verbal}")
             print("\nFrase Reordenada:")
