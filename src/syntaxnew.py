@@ -107,7 +107,7 @@ class SyntaxNew:
         """Retorna uma nova frase a partir da original substituindo algumas palavras por sinônimos."""
         modified_text = []
         for word in word_list:
-            if word.isalpha():
+            if word.isalpha() and word != "pelo":  # Verifica se a palavra é alfabética e não é "pelo"
                 synonyms = wordnet.synsets(word, lang='por')
                 if synonyms:
                     new_word = random.choice(synonyms).lemmas(lang='por')[0].name()
@@ -119,12 +119,15 @@ class SyntaxNew:
 
     def get_participle(self, verb):
         """Define a conjugação para o particípio de cada verbo que deseja suportar"""
+        # Aqui define a conjugação para o particípio de cada verbo que deseja suportar
         participle = {
         
             "ou": "ado",
             "eu": "ido",
             "iu": "ido",
             "ôs": "osta",
+            "fez": "feito",
+            
             
             # Adicione outros verbos conforme necessário
         }
@@ -136,7 +139,6 @@ class SyntaxNew:
         
         # Retorna o particípio encontrado ou o próprio verbo
         return verb
-
 
     def execute(self, tokens):
         """Realiza a execução da análise sintática através de uma GLC e cria variações da frase caso a frase original seja aceita."""
