@@ -14,10 +14,6 @@ from nltk.corpus import wordnet
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
-# Limpando o terminal após exibir situação de download dos pacotes importados
-time.sleep(2)
-os.system('cls')  # clear -> Unix, cls -> Windows
-
 class Lexer:
   def __init__(self):
     self.phrase = None
@@ -31,10 +27,9 @@ class Lexer:
     self.phrase = phrase
 
   def execute(self):
-    # TODO: chamada de método que re-organiza a frase
-    # TODO: passar frases para a análise léxica
     try:
       nlp = spacy.load("pt_core_news_sm")
+      os.system('cls')  # clear -> Unix, cls -> Windows
       doc = nlp(self.phrase)
 
       for w in doc:
