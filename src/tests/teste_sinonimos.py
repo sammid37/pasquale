@@ -1,4 +1,6 @@
-# Rascunho
+# Construção de Compiladores I 
+# Pasquale Compiler - Teste para obter sinônimos
+# Enthony e Samantha
 
 import spacy
 import nltk
