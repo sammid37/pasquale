@@ -48,4 +48,3 @@ if __name__ == "__main__":
             scraper = Scraping(queries)
             queries_result = scraper.do_searches()
             scraper.display_snippets()
-        
