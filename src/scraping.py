@@ -35,7 +35,7 @@ class Scraping:
       print(f"\"{q}\"")
       for snippet in r.values():
         print(snippet)
-      print()
+    print()
       # table_data = [
       #     ["Quantidade de resultados:", r["quantidade_resultados"]],
       #     # TODO: futura implementação referente a exibição de snippets
