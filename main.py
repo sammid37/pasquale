@@ -1,5 +1,5 @@
-# Construção de Compiladores 
-# Arquivo principal 
+# Construção de Compiladores I 
+# Pasquale Compiler - Arquivo Principal
 # Enthony e Samantha
 
 import re
@@ -31,21 +31,21 @@ if __name__ == "__main__":
         lexer.set_output_file(lexer_output)
         tokens = lexer.execute()
 
-        print("Ordem da tokenização: ")
+        print("Resultado da tokenização: ")
         for token in tokens:
             print(token.word, token.grammar)
 
         # Chamada do Sintático
         syntax_analyzer = SyntaxNew()
-        analise = syntax_analyzer.execute(tokens)
-        if analise:
-            frases = analise 
-            frases.append(input_phrase)
+        syntax_result = syntax_analyzer.execute(tokens)
 
-            print(f"\n\n{frases}\n\n")
-
-            # Disparar requisições da frase original e novas frases para o Google
-            scraper = Scraping(frases)
+        # Caso o sintático tenha retornado as frases modifcadas, realiza busca
+        if syntax_result:
+            queries = syntax_result 
+            queries.append(input_phrase)
+      
+            # Disparar requisições da frase original e novas queries para o Google
+            scraper = Scraping(queries)
             queries_result = scraper.do_searches()
             scraper.display_snippets()
         
