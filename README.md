@@ -33,4 +33,5 @@ Em breve.
 
 ## 💾 Futuras implementações
 
-Em breve.
+- [ ] Realizar limpeza de código.
+- [ ] Recuperar quantidade de resultados após atualização do Google (agora tem mais passos para visualizar a quantidade de resultados).
