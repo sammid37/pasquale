@@ -12,15 +12,16 @@ Antes de executar o código principal, por favor baixe as seguintes dependência
 
 ```bash
 pip install termcolor # versão 2.4.0
-pip install nltk
-pip install spacy
+pip install selenium # versão 4.20.0
+pip install requests # versão 2.31.0
+pip install spacy # versão 3.7.4
+pip install nltk # versão 3.8.1
 
 # E execute os seguintes comandos:
-python -m nltk download wordnet
 python -m spacy download pt_core_news_sm
 ```
 
-Feito isso, execute o comando abaixo.
+Feito isso, execute o comando abaixo na pasta raiz do projeto.
 
 ```bash
 python main.py
