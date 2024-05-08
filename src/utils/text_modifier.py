@@ -1,9 +1,17 @@
+# Construção de Compiladores I 
+# Pasquale Compiler - Utilitário
+# Enthony e Samantha
+
 import spacy
 import random
 from tokens import Tokens
 from typing import List
 from nltk.corpus import wordnet
 from termcolor import colored
+
+
+# TODO: mover funções de modificações(que estão no sintático) para esta classe
+# Objetivo: limpeza de código
 
 class TextModifier:
   def __init__(self):
