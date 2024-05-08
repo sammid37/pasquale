@@ -14,6 +14,7 @@ from syntaxnew import SyntaxNew
 from termcolor import colored
 
 if __name__ == "__main__":
+    os.system('cls')  # clear -> Unix, cls -> Windows
     print(colored("Pasquale Compiler", "blue"))
     print(colored("Compilador da Língua Portuguesa\n", "blue"))
 
@@ -45,6 +46,7 @@ if __name__ == "__main__":
             queries.append(input_phrase)
       
             # Disparar requisições da frase original e novas queries para o Google
+            print(colored(f"\n🔎 Buscando por resultados no Google...","blue"))
             scraper = Scraping(queries)
             queries_result = scraper.do_searches()
             scraper.display_snippets()
