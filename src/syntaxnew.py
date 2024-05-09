@@ -20,7 +20,7 @@ class SyntaxNew:
             Substantivo -> 'NOUN'
             Pronome -> 'PRON'
             Adjetivo -> 'ADJ'
-            Verbo -> 'VERB' | 'AUX' | 'AUX' 'VERB' | VerboNegacao
+            Verbo -> 'VERB' | 'AUX' | 'AUX' 'VERB' | 'VERB' 'AUX' 'VERB' | VerboNegacao
             VerboNegacao -> Adverbio Verbo
             Adverbio -> 'ADV'
             Preposicao -> 'ADP'
